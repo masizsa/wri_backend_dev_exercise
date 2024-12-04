@@ -176,4 +176,43 @@ class ProductModel
             return "Error: " . $stmt->error;
         }
     }
+
+    public function getAvailableProducts($isMember, $total_uang) {
+        // Ambil semua produk dari tabel
+        $sql = "SELECT * FROM product";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute();
+        $result = $stmt->get_result();
+    
+        $availableProducts = [];
+    
+        if ($result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+                // Hitung harga setelah diskon
+                $hargaSetelahDiskon = $row['harga'] * (1 - $row['diskon']);
+                
+                // Periksa apakah harga setelah diskon lebih kecil dari total uang
+                if ($hargaSetelahDiskon <= $total_uang) {
+                    // Hitung harga member jika pembeli adalah member
+                    $hargaMember = $hargaSetelahDiskon;
+                    if ($isMember) {
+                        $hargaMember -= $hargaMember * 0.15;
+                    }
+    
+                    // Tambahkan data produk yang memenuhi syarat ke array
+                    $availableProducts[] = [
+                        "name" => $row['name'],
+                        "harga" => round($row['harga'], 2),
+                        "diskon" => ($row['diskon'] * 100) . "%",
+                        "harga_setelah_diskon" => round($hargaSetelahDiskon, 2),
+                        "harga_member" => round($hargaMember, 2)
+                    ];
+                }
+            }
+        }
+    
+        return $availableProducts; // Kembalikan daftar produk yang memenuhi syarat
+    }
+    
+    
 }

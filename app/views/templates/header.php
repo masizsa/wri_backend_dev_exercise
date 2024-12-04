@@ -16,21 +16,10 @@
     </script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <!-- local css -->
-
-    <!-- <link rel="stylesheet" href="css/<?= $data['css'] ?>.css"> -->
-    <!-- <link rel="stylesheet" href="css/sidebar.css"> -->
-    <link rel="stylesheet" href="css/style.css">
-
-    <!-- <link rel="stylesheet" href="../css/<?= $data['css'] ?>.css"> -->
-    <!-- <link rel="stylesheet" href="../css/sidebar.css"> -->
-    <link rel="stylesheet" href="../css/style.css">
-
-
-    <!-- Jquery -->
+    <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
 </head>
 
 <body>
-    <section class="custom--app-parent">
+<section class="min-w-full min-h-screen flex justify-center items-center">
